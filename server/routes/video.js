@@ -7,7 +7,7 @@ const multer = require("multer");
 // config option
 let storage = multer.diskStorage({
     // destination : file upload 후 저장 위치 설정
-    destinations: (req, file, cb) => {
+    destination: (req, file, cb) => {
         cb(null, "uploads/");
     },
     // filename : 저장시 파일 이름 설정
