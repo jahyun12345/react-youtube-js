@@ -86,6 +86,7 @@ router.post('/thumbnail', (req, res) => {
     });
 })
 
+// 해당 사용자가 업로드 한 비디오 목록에 추가
 router.post('/uploadVideo', (req, res) => {
     // 비디오 정보 저장
     // req.body : variables
@@ -94,6 +95,18 @@ router.post('/uploadVideo', (req, res) => {
     video.save((err, doc) => {
         if (err) return res.json({success: false, err});
         res.status(200).json({success: true});
+    })
+})
+
+// 비디오 : DB => client
+router.get('/getVideos', (req, res) => {
+    // find() : 해당 Collection(Table)에 있는 모든 데이터 가져옴
+    Video.find()
+    // populate 설정하지 않을 시 writer-id 값만 가져옴 / 설정 시 모든 데이터 가져옴
+    .populate('writer')
+    .exec((err, videos) => {
+        if (err) return res.status(400).send(err);
+        res.status(200).json({success: true, videos});
     })
 })
 
