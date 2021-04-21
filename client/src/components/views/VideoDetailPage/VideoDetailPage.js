@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, List, Avatar } from 'antd';
 import Axios from 'axios';
+import SideVideo from './Sections/SideVideo';
 
 function VideoDetailPage(props) {
     // router에 videoId 값을 파라미터로 갖는다고 설정해서 아래 방법으로 가져올 수 있음
@@ -38,7 +39,7 @@ function VideoDetailPage(props) {
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
-                    SideVideo
+                    <SideVideo />
                 </Col>
             </Row>
         )
