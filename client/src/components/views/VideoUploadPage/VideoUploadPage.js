@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {Typography, Button, Form, message, Input, Icon} from 'antd';
 import Dropzone from 'react-dropzone';
+// Axios : 서버에 데이터 주고 받을 때 사용
+import Axios from 'axios';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -23,6 +25,26 @@ function VideoUploadPage() {
     const [Description, setDescription] = useState("");
     const [Private, setPrivate] = useState(0);
     const [Category, setCategory] = useState("Film & Animation");
+
+    const onDrop = (files) => {
+        // console.log(files);
+
+        // 파일 전송 오류 방지 위해 설정
+        let formData = new FormData;
+        const config = {
+            header: {'content-type': 'multipart/form-data'}
+        }
+        formData.append("file", files[0]);
+
+        Axios.post('/api/video/uploadfiles', formData, config)
+            .then(response => {
+                if (response.data.success) {
+                    console.log(response.data);
+                } else {
+                    alert('failed to upload video file');
+                }
+            })
+    }
 
     const onTitleChange = (e) => {
         setVideoTitle(e.currentTarget.value);
@@ -48,7 +70,7 @@ function VideoUploadPage() {
             <Form onSubmit>
                 <div style={{display:'flex', justifyContent:'space-between'}}>
                     {/* Drop Zone */}
-                    <Dropzone onDrop multiple maxSize>
+                    <Dropzone onDrop={onDrop} multiple={false} maxSize={10000000000}>
                         {({ getRootProps, getInputProps }) => (
                             <div
                                 style={{width:'300px', height:'240px', border:'1px solid lightgray', display:'flex', justifyContent:'center', alignItems:'center'}}
