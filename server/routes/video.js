@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const { Video } = require("../models/Video");
-// const { auth } = require("../middleware/auth");
+const { Video } = require("../models/Video");
 const multer = require("multer");
 const ffmpeg = require("fluent-ffmpeg");
 
@@ -85,6 +84,17 @@ router.post('/thumbnail', (req, res) => {
         // %b : input basename(filename w/o extension) : 확장자명 제외한 파일명
         filename: 'thumbnail-%b.png'
     });
+})
+
+router.post('/uploadVideo', (req, res) => {
+    // 비디오 정보 저장
+    // req.body : variables
+    const video = new Video(req.body);
+    // save() : mongoDB에 저장
+    video.save((err, doc) => {
+        if (err) return res.json({success: false, err});
+        res.status(200).json({success: true});
+    })
 })
 
 module.exports = router;
