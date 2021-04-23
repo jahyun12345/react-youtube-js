@@ -7,7 +7,7 @@ const { TextArea } = Input;
 
 function SingleComment(props) {
     const user = useSelector(state => state.user);
-    const videoId = props.postId;
+    const videoId = props.videoId;
 
     const [OpenReply, setOpenReply] = useState(false);
     const [CommentValue, setCommentValue] = useState('');
@@ -30,7 +30,7 @@ function SingleComment(props) {
         const variables = {
             content:CommentValue,
             writer:user.userData._id,
-            postId:videoId,
+            videoId:videoId,
             responseTo:props.comment._id
         }
 

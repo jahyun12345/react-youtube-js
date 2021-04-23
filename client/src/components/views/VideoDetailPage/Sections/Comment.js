@@ -5,11 +5,11 @@ import SingleComment from './SingleComment';
 
 function Comment(props) {
     const user = useSelector(state => state.user);
-    const videoId = props.postId;
+    const videoId = props.videoId;
 
     const [CommentValue, setCommentValue] = useState('');
     
-    const handleClick = (event) => {
+    const onHandleChange = (event) => {
         setCommentValue(event.currentTarget.value);
     }
 
@@ -19,7 +19,7 @@ function Comment(props) {
         const variables = {
             content:CommentValue,
             writer:user.userData._id,
-            postId:videoId
+            videoId:videoId
         }
 
         Axios.post('/api/comment/saveComment', variables)
@@ -44,7 +44,7 @@ function Comment(props) {
             {props.commentLists && props.commentLists.map((comment, index) => (
                 // depth-1 댓글만 출력되도록    
                (!comment.responseTo &&
-                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={props.postId} key={index} />
+                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} videoId={props.videoId} key={index} />
                 )
             ))}
 
@@ -52,7 +52,7 @@ function Comment(props) {
             <form style={{display:'flex'}} onSubmit={onSubmit}>
                 <textarea 
                     style={{width:'100%', borderRadius:'5px'}}
-                    onChange={handleClick}
+                    onChange={onHandleChange}
                     value={CommentValue}
                     placeholder="write comment"
                 />

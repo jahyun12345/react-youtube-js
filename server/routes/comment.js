@@ -20,11 +20,11 @@ router.post('/saveComment', (req, res) => {
 })
 
 router.post('/getComments', (req, res) => {
-    Comment.find({postId:req.body.videoId})
+    Comment.find({videoId:req.body.videoId})
     .populate('writer')
     .exec((err, comments) => {
         if (err) return res.status(400).send(err);
-        return res.status(200).json({success:true, comments});
+        res.status(200).json({success:true, comments});
     })
 })
 
