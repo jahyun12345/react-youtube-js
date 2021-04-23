@@ -3,6 +3,7 @@ import { Row, Col, List, Avatar } from 'antd';
 import Axios from 'axios';
 import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
+import Comment from './Sections/Comment';
 
 function VideoDetailPage(props) {
     // router에 videoId 값을 파라미터로 갖는다고 설정해서 아래 방법으로 가져올 수 있음
@@ -24,12 +25,14 @@ function VideoDetailPage(props) {
     }, [])
 
     if (VideoDetail.writer) {
+        const subscribeButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo={VideoDetail.writer._id} />
+        
         return (
             <Row gutter={[16, 16]}>
                 <Col lg={18} xs={24}>
                     <div style={{width:'100%', padding:'3rem 4rem'}}>
                         <video style={{width:'100%'}} src={`http://localhost:5000/${VideoDetail.filePath}`} controls />
-                        <List.Item actions={[<Subscribe userTo={VideoDetail.writer._id} />]}>
+                        <List.Item actions={[subscribeButton]}>
                             <List.Item.Meta 
                                 avatar={<Avatar src={VideoDetail.writer.image} />}  
                                 title={VideoDetail.writer.name}
@@ -37,6 +40,7 @@ function VideoDetailPage(props) {
                             />
                         </List.Item>
                         {/* Comments */}
+                        <Comment />
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
