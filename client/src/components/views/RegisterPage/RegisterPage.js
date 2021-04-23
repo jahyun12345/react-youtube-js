@@ -76,6 +76,7 @@ function RegisterPage(props) {
             if (response.payload.success) {
               props.history.push("/login");
             } else {
+              console.log(response)
               alert(response.payload.err.errmsg)
             }
           })

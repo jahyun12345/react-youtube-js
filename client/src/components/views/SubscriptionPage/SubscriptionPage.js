@@ -5,15 +5,16 @@ import VideoCards from '../commons/VideoCards';
 
 const { Title } = Typography;
 
-function LandingPage() {
+// 구독자의 다른 영상 확인 가능한 페이지
+function SubscriptionPage() {
     const [Video, setVideo] = useState([]);
 
-    // DOM load 되자마자 실행 
-    // [](=[input]) 부분 없을 시 계속해서 실행
-    // [](=[input]) 부분 있는 경우 한 번만 실행
-    // class component의 componentDidMount와 같은 역할
     useEffect(() => {
-        Axios.get('/api/video/getVideos')
+        let subscriptionVariable = {
+            userFrom:localStorage.getItem('userId')
+        };
+
+        Axios.post('/api/video/getSubscriptionVideos', subscriptionVariable)
             .then(response => {
                 if (response.data.success) {
                     // console.log(response.data);
@@ -33,4 +34,4 @@ function LandingPage() {
     )
 }
 
-export default LandingPage
+export default SubscriptionPage
