@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 
 function Comment(props) {
     const user = useSelector(state => state.user);
@@ -44,7 +45,10 @@ function Comment(props) {
             {props.commentLists && props.commentLists.map((comment, index) => (
                 // depth-1 댓글만 출력되도록    
                (!comment.responseTo &&
-                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} videoId={props.videoId} key={index} />
+                <React.Fragment key={index}>
+                    <SingleComment refreshFunction={props.refreshFunction} comment={comment} videoId={props.videoId} />
+                    <ReplyComment refreshFunction={props.refreshFunction} parentCommentId={comment._id} videoId={props.videoId} commentLists={props.commentLists} />
+                </React.Fragment>
                 )
             ))}
 
