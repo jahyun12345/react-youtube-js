@@ -34,7 +34,7 @@ app.get('/', (req, res) => res.send('Hello World! 54321'))
 app.use('/api/users', require('./routes/users'));
 app.use('/api/favorite', require('./routes/favorite'));
 app.use('/api/video', require('./routes/video'));
-app.use('/api/subscribe', express.static('subscribe'));
+app.use('/api/subscribe', require('./routes/subscribe'));
 app.use('/uploads', express.static('uploads'));
 
 // axios testing
