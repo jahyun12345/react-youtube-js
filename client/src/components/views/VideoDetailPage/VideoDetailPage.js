@@ -11,18 +11,33 @@ function VideoDetailPage(props) {
     const variable = { videoId:videoId };
 
     const [VideoDetail, setVideoDetail] = useState([]);
+    const [Comments, setComments] = useState([]);
 
     useEffect(() => {
         Axios.post('/api/video/getVideoDetail', variable)
             .then(response => {
                 if (response.data.success) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setVideoDetail(response.data.videoDetail);
                 } else {
                     alert('failed to load video information');
                 }
             })
+
+        Axios.post('/api/comment/getComments', variable)
+            .then(response => {
+                if (response.data.success) {
+                    console.log(response.data.comments);
+                    setComments(response.data.comments);
+                } else {
+                    alert('failed to load comment data');
+                }
+            })
     }, [])
+
+    const refreshFunction = (newComment) => {
+        setComments(Comments.concat(newComment));
+    }
 
     if (VideoDetail.writer) {
         const subscribeButton = VideoDetail.writer._id !== localStorage.getItem('userId') && <Subscribe userTo={VideoDetail.writer._id} />
@@ -40,7 +55,7 @@ function VideoDetailPage(props) {
                             />
                         </List.Item>
                         {/* Comments */}
-                        <Comment />
+                        <Comment refreshFunction={refreshFunction} commentLists={Comments} postId={videoId} />
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
