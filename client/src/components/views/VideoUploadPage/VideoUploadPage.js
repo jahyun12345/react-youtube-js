@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {Typography, Button, Form, message, Input, Icon} from 'antd';
 import Dropzone from 'react-dropzone';
 // Axios : 서버에 데이터 주고 받을 때 사용
@@ -35,7 +35,7 @@ function VideoUploadPage(props) {
         // console.log(files);
 
         // 파일 전송 오류 방지 위해 설정
-        let formData = new FormData;
+        let formData = new FormData();
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }

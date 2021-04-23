@@ -18,6 +18,7 @@ function VideoCards(props) {
                     <img 
                         style={{width:'100%'}} 
                         src={`http://localhost:5000/${video.thumbnail}`}
+                        alt="thumbnail"
                     />
                     <div className="duration">
                         <span>{minutes} : {seconds}</span>

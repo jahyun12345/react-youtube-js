@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
-import { Comment, Avatar, Button, Input } from 'antd';
+import { Comment, Avatar, Input } from 'antd';
 
 const { TextArea } = Input;
 
