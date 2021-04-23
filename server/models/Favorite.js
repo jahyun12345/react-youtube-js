@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const favoriteSchema = mongoose.Schema({
     // User Model을 ObjectId 값으로 가져올 수 있도록 설정
     userFrom: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     },
     movieId: {
