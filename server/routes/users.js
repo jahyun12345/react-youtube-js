@@ -12,22 +12,20 @@ const { auth } = require("../middleware/auth");
 // sign-up
 router.post('/register', (req, res) => {
     // bodyParser로 받아올 수 있음
-    const user = new User(req.body)
+    const user = new User(req.body);
     // mognoDB method : save()
     user.save((err, userInfo) => {
         // 실패(에러 발생)
         if (err) return res.json({ success:false, err})
         // 성공 : .status(200)
-        return res.status(200).json({
-            success:true
-        })
+        return res.status(200).json({ success:true })
     })
 })
 
 // sign-in
 router.post('/login', (req, res) => {
     // 요청된 이메일 데이터베이스에서 찾음(findOne() : mongoDB method)
-    User.findOne({ mail:req.body.mail }, (err, user) => {
+    User.findOne({ email:req.body.email }, (err, user) => {
         if (!user) {
             return res.json({
                 loginSuccess: 'false',
@@ -58,7 +56,7 @@ router.get('/auth', auth, (req, res) => {
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
         isAuth: true,
-        mail: req.user.mail,
+        email: req.user.email,
         name: req.user.name,
         lastname: req.user.lastname,
         role: req.user.role,

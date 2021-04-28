@@ -12,10 +12,10 @@ const config = require('./config/key.js');
 const cookieParser = require('cookie-parser');
 const { auth } = require('./middleware/auth.js');
 
-// application/x-www-urlencoded data 분석해서 가져옴
-app.use(bodyParser.urlencoded({extended:true}));
 // application/json data 분석해서 가져옴
 app.use(bodyParser.json());
+// application/x-www-urlencoded data 분석해서 가져옴
+app.use(bodyParser.urlencoded({extended:true}));
 // 사용자 토큰 쿠키에 저장하기 위해 사용
 app.use(cookieParser());
 
