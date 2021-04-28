@@ -32,7 +32,6 @@ app.get('/', (req, res) => res.send('Hello World! 54321'))
 
 // endpoint 중복 주소 정의하여 router 사용할 수 있도록 함
 app.use('/api/users', require('./routes/users'));
-app.use('/api/favorite', require('./routes/favorite'));
 app.use('/api/video', require('./routes/video'));
 app.use('/api/subscribe', require('./routes/subscribe'));
 app.use('/api/comment', require('./routes/comment'));
